@@ -7,15 +7,31 @@
 
 import SwiftUI
 
+enum Emojis: String, CaseIterable {
+    case 💰,🛍️,🍝,💎
+}
+
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+    @State var selection: Emojis = .💰
+    
+    var body: some View{
+        NavigationView{
+            VStack{
+                
+                Text(selection.rawValue)
+                    .font(.system(size:150))
+                
+                Picker("pick yo emoji", selection: $selection){
+                    ForEach(Emojis.allCases, id: \.self){
+                        emoji in Text(emoji.rawValue)
+                    }
+                }
+                .pickerStyle(.palette)
+                .padding()
+            }
+            .navigationTitle("what to get diya for her bday?")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .padding()
     }
 }
 
